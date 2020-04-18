@@ -12,7 +12,7 @@ public class WorldController extends GraphicsProgram {
 	private GCanvas theWorldCanvas;
 	public static final int APPLICATION_WIDTH = 200;
 	public static final int APPLICATION_HEIGHT = 200;
-	public LifeForm cow;
+	RandomGenerator rgen = new RandomGenerator ();
 	
 	public void run(){	
 		setUpWorld();
@@ -26,9 +26,10 @@ public class WorldController extends GraphicsProgram {
 	public void setUpWorld(){
 		theWorld = new World(100,100);
 		for (int i=1; i<50; i ++) {
-			theWorld.getCreatureList().add (new Healthy (new Location (i,i+1), theWorld));
+			int rand = rgen.nextInt (0,99);
+			theWorld.getCreatureList().add (new Healthy (new Location (i,rand), theWorld));
 		}
-		theWorld.getCreatureList().add (new InfectedAsymptomatic (new Location (1,1), theWorld));
+		theWorld.getCreatureList().add (new InfectedAsymptomatic (new Location (2,1), theWorld));
 		theWorldCanvas = this.getGCanvas();
 	}
 	
