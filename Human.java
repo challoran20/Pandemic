@@ -20,8 +20,5 @@ public abstract class Human extends LifeForm {
 		super(myLifeSpan, myLocation, myColor, myWorld);
 	}
 	
-		
-	public abstract void move();
-	
 }
     
