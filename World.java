@@ -22,6 +22,13 @@ public class World {
 		//creaturesGetOlder();
 		//purgeTheDead();
 		checkInfectionStatus();
+		for (LifeForm l: creatureList) {
+			l.move();
+			if (l instanceof Healthy) {
+				((Healthy) l).infect();
+			}
+			
+		}
 	}
 	
 	public void checkInfectionStatus() {
