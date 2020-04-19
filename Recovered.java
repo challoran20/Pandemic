@@ -18,10 +18,11 @@ public class Recovered extends Human {
 	}
 		
 	public void move () {
-        int newX = this.getMyLocation().getX() + rgen.nextInt(-2,2);
-        int newY = this.getMyLocation().getY() +  rgen.nextInt(-2,2);
-        if (newX >= 0 && newX < 20 && newY >= 0 && newY < 20) {
-              validPosition = true;
+		boolean validPosition = true;
+        int newX = this.getMyLocation().getX() + rgen.nextInt(-1,1);
+        int newY = this.getMyLocation().getY() +  rgen.nextInt(-1,1);
+        if (newX < 0 || newX >= myWorld.getWidth() || newY < 0 || newY >= myWorld.getHeight()) {
+              validPosition = false;
               for (LifeForm c: myWorld.getCreatureList()){
                     if (c.getMyLocation().getX() == newX && c.getMyLocation().getY() == newY) {
                              validPosition = false;
@@ -29,7 +30,7 @@ public class Recovered extends Human {
                 }
           }
          
-       if (validPosition = true) {
+       if (validPosition == true) {
    			myLocation.setX(newX);
    			myLocation.setY(newY);
         }

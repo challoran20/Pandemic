@@ -19,10 +19,11 @@ public class World {
 		
 		//makeNewCreatures();
 		//eatThings();
-		//creaturesGetOlder();
-		//purgeTheDead();
+		creaturesGetOlder();
+		purgeTheDead();
 		checkInfectionStatus();
-		for (LifeForm l: creatureList) {
+		for (int i = creatureList.size() - 1; i>=0; i--) {
+			LifeForm l = creatureList.get(i);
 			l.move();
 			if (l instanceof Healthy) {
 				((Healthy) l).infect();

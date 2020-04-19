@@ -24,18 +24,21 @@ public class WorldController extends GraphicsProgram {
 	}
 	
 	public void setUpWorld(){
-		theWorld = new World(100,100);
-		for (int i=1; i<50; i ++) {
-			int rand = rgen.nextInt (0,99);
-			theWorld.getCreatureList().add (new Healthy (new Location (i,rand), theWorld));
+		theWorld = new World(20,20);
+		for (int i=0; i<50; i ++) {
+			int randX = rgen.nextInt (0,theWorld.getWidth()-1);
+			int randY = rgen.nextInt (0,theWorld.getHeight()-1);
+			theWorld.getCreatureList().add (new Healthy (new Location (randX, randY), theWorld));
 		}
-		theWorld.getCreatureList().add (new InfectedAsymptomatic (new Location (2,1), theWorld));
+		theWorld.getCreatureList().add (new InfectedAsymptomatic (new Location (1,1), theWorld));
 		theWorldCanvas = this.getGCanvas();
+		//System.out.print(theWorld.getCreatureList().get(49).getClass().getName());
+		//System.out.print(theWorld.getCreatureList().get(50).getClass().getName());
 	}
 	
 	public void runWorld(){
 		drawWorld();
-		for(int i=0; i<3;i++){
+		for(int i=0; i<50;i++){
 			theWorld.letTimePass();
 			pause(500);
 			drawWorld();

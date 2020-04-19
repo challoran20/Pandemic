@@ -18,10 +18,11 @@ public class Healthy extends Human {
 	}
 	
 	public void move () {
-        int newX = this.getMyLocation().getX() + rgen.nextInt(-2,2);
-        int newY = this.getMyLocation().getY() +  rgen.nextInt(-2,2);
-        if (newX >= 0 && newX < 20 && newY >= 0 && newY < 20) {
-              validPosition = true;
+		boolean validPosition = true;
+        int newX = this.getMyLocation().getX() + rgen.nextInt(-1,1);
+        int newY = this.getMyLocation().getY() +  rgen.nextInt(-1,1);
+        if (newX < 0 || newX >= myWorld.getWidth() || newY < 0 || newY >= myWorld.getHeight()) {
+              validPosition = false;
               for (LifeForm c: myWorld.getCreatureList()){
                     if (c.getMyLocation().getX() == newX && c.getMyLocation().getY() == newY) {
                              validPosition = false;
@@ -29,7 +30,7 @@ public class Healthy extends Human {
                 }
           }
          
-       if (validPosition = true) {
+       if (validPosition == true) {
    			myLocation.setX(newX);
    			myLocation.setY(newY);
         }
@@ -39,15 +40,18 @@ public class Healthy extends Human {
 		int myX = myLocation.getX();
 		int myY = myLocation.getY();
 		int myAge = this.getAge();
-		for (LifeForm c: myWorld.getCreatureList()){
+		for (int i = myWorld.creatureList.size() - 1; i >= 0; i--){
+			LifeForm c = myWorld.creatureList.get(i);
+			//System.out.print(c.getClass().getName());
 			if (Math.abs(c.getMyLocation().getX() - myX)<=2 && Math.abs(c.getMyLocation().getY() - myY)<=2) {
-				if (c.getClass().getName().equals("InfectedSymptomatic") || c.getClass().getName().equals("InfectedSymptomatic")) {
-					if (rgen.nextInt(1,100) > 30) {
+				if (c.getClass().getName().equals("Pandemic.InfectedSymptomatic") || c.getClass().getName().equals("Pandemic.InfectedAsymptomatic")) {
+				int randomPercent = rgen.nextInt(1,100);
+					if (randomPercent > 30) {
 						myWorld.getCreatureList().remove(this);
-						if (rgen.nextInt(1,100) <50) {
+						int fiftyPercent = rgen.nextInt(1,2);
+						if (fiftyPercent == 1) {
 							myWorld.getCreatureList().add(new InfectedSymptomatic (80-myAge, new Location (myX,myY), Color.RED, myWorld));
-						}
-						if (rgen.nextInt(1,100)>50) {
+						} else {
 							myWorld.getCreatureList().add(new InfectedAsymptomatic (80-myAge, new Location (myX,myY), Color.yellow, myWorld));
 						}
 					}
