@@ -23,12 +23,12 @@ public class Healthy extends Human {
         int newY = this.getMyLocation().getY() +  rgen.nextInt(-1,1);
         if (newX < 0 || newX >= myWorld.getWidth() || newY < 0 || newY >= myWorld.getHeight()) {
               validPosition = false;
-              for (LifeForm c: myWorld.getCreatureList()){
-                    if (c.getMyLocation().getX() == newX && c.getMyLocation().getY() == newY) {
-                             validPosition = false;
-                     }
-                }
-          }
+	}
+       for (LifeForm c: myWorld.getCreatureList()){
+              if (c.getMyLocation().getX() == newX && c.getMyLocation().getY() == newY) {
+                       validPosition = false;
+              }
+        }
          
        if (validPosition == true) {
    			myLocation.setX(newX);
