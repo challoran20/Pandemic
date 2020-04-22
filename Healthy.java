@@ -42,23 +42,21 @@ public class Healthy extends Human {
 		int myAge = this.getAge();
 		for (int i = myWorld.creatureList.size() - 1; i >= 0; i--){
 			LifeForm c = myWorld.creatureList.get(i);
-			//System.out.print(c.getClass().getName());
 			if (Math.abs(c.getMyLocation().getX() - myX)<=2 && Math.abs(c.getMyLocation().getY() - myY)<=2) {
-				if (c.getClass().getName().equals("Pandemic.InfectedSymptomatic") || c.getClass().getName().equals("Pandemic.InfectedAsymptomatic")) {
-				int randomPercent = rgen.nextInt(1,100);
-					if (randomPercent > 30) {
+				if (c.getClass().getName().equals("InfectedSymptomatic") || c.getClass().getName().equals("InfectedAsymptomatic")) {
+					if (rgen.nextInt(1,100) > 30) {
 						myWorld.getCreatureList().remove(this);
-						int fiftyPercent = rgen.nextInt(1,2);
-						if (fiftyPercent == 1) {
+						if (rgen.nextInt(1,2) == 1) {
 							myWorld.getCreatureList().add(new InfectedSymptomatic (80-myAge, new Location (myX,myY), Color.RED, myWorld));
+							break;
 						} else {
 							myWorld.getCreatureList().add(new InfectedAsymptomatic (80-myAge, new Location (myX,myY), Color.yellow, myWorld));
+							break;
 						}
 					}
 				}
 			}
 		}
-	}
 	
 }
 
