@@ -24,16 +24,34 @@ public class WorldController extends GraphicsProgram {
 	}
 	
 	public void setUpWorld(){
+		ArrayList<Location> locationList = new ArrayList <Location>();
+		locationList.add(new Location (1,1));
 		theWorld = new World(20,20);
-		for (int i=0; i<50; i ++) {
-			int randX = rgen.nextInt (0,theWorld.getWidth()-1);
-			int randY = rgen.nextInt (0,theWorld.getHeight()-1);
-			theWorld.getCreatureList().add (new Healthy (new Location (randX, randY), theWorld));
+		int randX = -1;
+		int randY = -1;
+		for (int i=0; i<49; i ++) {
+			boolean validPosition = false;
+			while (validPosition == false) {
+				randX = rgen.nextInt (0,theWorld.getWidth()-1);
+				randY = rgen.nextInt (0,theWorld.getHeight()-1);
+				for (Location loc: locationList) {
+					if (loc.getX() != randX || loc.getY() != randY) {
+						validPosition = true;
+					} else if (loc.getX() == randX && loc.getY() == randY) {
+						validPosition = false;
+						break;
+					}
+				}
+			}
+			if (validPosition == true) {
+				Healthy healthy = new Healthy (new Location (randX, randY), theWorld);
+				healthy.setAge(rgen.nextInt(0,80));
+				theWorld.getCreatureList().add (healthy);
+				locationList.add(new Location (randX,randY));
+			}
 		}
 		theWorld.getCreatureList().add (new InfectedAsymptomatic (new Location (1,1), theWorld));
 		theWorldCanvas = this.getGCanvas();
-		//System.out.print(theWorld.getCreatureList().get(49).getClass().getName());
-		//System.out.print(theWorld.getCreatureList().get(50).getClass().getName());
 	}
 	
 	public void runWorld(){
