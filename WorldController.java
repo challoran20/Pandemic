@@ -56,12 +56,21 @@ public class WorldController extends GraphicsProgram {
 	
 	public void runWorld(){
 		drawWorld();
-		for(int i=0; i<50;i++){
+		for(int i=0; i<30;i++){
+			int currentSizeOfCreatureList = theWorld.getCreatureList().size();
+			int totalSick = 0;
+			for(int j=0; j< currentSizeOfCreatureList; j++) {
+				if (theWorld.getCreatureList().get(j).getMyColor() == Color.RED || theWorld.getCreatureList().get(j).getMyColor() == Color.yellow) {
+					totalSick ++;
+				} 
+			}
+			System.out.println ("Number of sick people:" + totalSick);
+			
 			theWorld.letTimePass();
 			pause(500);
 			drawWorld();
 		}
-	}	
+	}		
 	
 	public void drawWorld(){
 		drawBlankWorld();
